@@ -1,7 +1,9 @@
 package com.quoc.expensetracker.model;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -82,7 +84,10 @@ public class Transaction {
 
     @Override
     public String toString() {
+        //format currency for Viet Nam (e.g. 100,000 ₫)
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+
         return String.format("[%s] %s | Cat: %s | %s VND",
-                date, note, categoryId, amount.toPlainString());
+                date, note, categoryId, formatter.format(amount));
     }
 }
