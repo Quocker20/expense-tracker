@@ -10,7 +10,7 @@ import java.util.UUID;
  * Uses BigDecimal for monetary precision.
  */
 public class Transaction {
-    private String id = UUID.randomUUID().toString();
+    private final String id = UUID.randomUUID().toString();
     private BigDecimal amount;
     private String categoryId;
     private String note;
@@ -48,10 +48,6 @@ public class Transaction {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
@@ -84,12 +80,11 @@ public class Transaction {
         this.date = date;
     }
 
+    public LocalDateTime getCreatedAt() {return createdAt;}
+
     @Override
     public String toString() {
-        return String.format("Transaction[id=%s, amount=%s, date=%s, created=%s]",
-                id.substring(0, 8), // Chỉ lấy 8 ký tự đầu của UUID cho gọn
-                amount,
-                date,
-                createdAt);
+        return String.format("Transaction[id=%s, amount=%s, date=%s, created=%s]", id.substring(0, 8), // Chỉ lấy 8 ký tự đầu của UUID cho gọn
+                amount, date, createdAt);
     }
 }

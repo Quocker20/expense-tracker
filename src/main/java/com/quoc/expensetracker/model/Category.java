@@ -6,7 +6,7 @@ import java.util.UUID;
  * Represents a spending category (e.g., Food, Transport).
  */
 public class Category {
-    private String id = UUID.randomUUID().toString();
+    private final String id = UUID.randomUUID().toString();
     private String name;
 
     // --- Constructors ---
@@ -30,14 +30,8 @@ public class Category {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
-        return String.format("Category[id=%s, name=%s]",
-                id.substring(0, 8),
-                name);
+        return String.format("Category[id=%s, name=%s]", id.substring(0, 8), name);
     }
 }
