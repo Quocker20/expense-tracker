@@ -11,7 +11,7 @@ import java.util.UUID;
  * Uses BigDecimal for monetary precision.
  */
 public class Transaction {
-    private String id;
+    private String id = UUID.randomUUID().toString();
     private BigDecimal amount;
     private String categoryId;
     private String note;
@@ -21,17 +21,16 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(BigDecimal ammount, String categoryId, String note, LocalDate date) {
+    public Transaction(BigDecimal amount, String categoryId, String note, LocalDate date) {
         //Validation: Fail fast
-        if (ammount == null || ammount.compareTo(BigDecimal.ZERO) < 0) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Amount must be non-negative");
         }
         if (categoryId == null || categoryId.isBlank()) {
             throw new IllegalArgumentException("Category is Required");
         }
 
-        this.id = UUID.randomUUID().toString();
-        this.amount = ammount;
+        this.amount = amount;
         this.categoryId = categoryId;
         this.note = note;
 
@@ -87,7 +86,7 @@ public class Transaction {
         //format currency for Viet Nam (e.g. 100,000 ₫)
         NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
-        return String.format("[%s] %s | Cat: %s | %s VND",
+        return String.format("[%s] %s | Cat: %s | %s",
                 date, note, categoryId, formatter.format(amount));
     }
 }

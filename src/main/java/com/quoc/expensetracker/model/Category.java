@@ -6,7 +6,7 @@ import java.util.UUID;
  * Represents a spending category (e.g., Food, Transport).
  */
 public class Category {
-    private String id;
+    private String id = UUID.randomUUID().toString();
     private String name;
 
     // --- Constructors ---
@@ -14,7 +14,6 @@ public class Category {
     }
 
     public Category(String name) {
-        this.id = UUID.randomUUID().toString();
         this.name = name;
     }
 
