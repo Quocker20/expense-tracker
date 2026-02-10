@@ -1,9 +1,8 @@
 package com.quoc.expensetracker.model;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.util.Locale;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -16,9 +15,12 @@ public class Transaction {
     private String categoryId;
     private String note;
     private LocalDate date;
+    private final LocalDateTime createdAt;
+
 
     // --- Constructors ---
     public Transaction() {
+        this.createdAt = LocalDateTime.now();
     }
 
     public Transaction(BigDecimal amount, String categoryId, String note, LocalDate date) {
@@ -33,6 +35,7 @@ public class Transaction {
         this.amount = amount;
         this.categoryId = categoryId;
         this.note = note;
+        this.createdAt = LocalDateTime.now();
 
         //Default to today if date is missing
         this.date = (date != null) ? date : LocalDate.now();
@@ -83,10 +86,10 @@ public class Transaction {
 
     @Override
     public String toString() {
-        //format currency for Viet Nam (e.g. 100,000 ₫)
-        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-
-        return String.format("[%s] %s | Cat: %s | %s",
-                date, note, categoryId, formatter.format(amount));
+        return String.format("Transaction[id=%s, amount=%s, date=%s, created=%s]",
+                id.substring(0, 8), // Chỉ lấy 8 ký tự đầu của UUID cho gọn
+                amount,
+                date,
+                createdAt);
     }
 }
